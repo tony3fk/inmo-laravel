@@ -18,7 +18,8 @@ class InmueblesController extends Controller
 
         if ($request->user()->authorizeRoles(['admin', 'user'])) { //con esto sólo lo ven si eres admin o user, sino con uno sólo
 
-            return "estoy en inmuebles/index";
+            $inmuebles = Inmueble::all();
+            return view('inmuebles.index', compact('inmuebles'));
         }
     }
 
@@ -47,9 +48,6 @@ class InmueblesController extends Controller
 
         if ($request->user()->authorizeRoles(['admin'])) { //si eres admin puedes insertar en BBDD
 
-
-
-
             $data = array(
                 'tipo' => $request->input('tipo'),
                 'operacion' => $request->input('operacion'),
@@ -65,15 +63,6 @@ class InmueblesController extends Controller
             //return $request->all();//muestra todo
             //return $request->input('tipo'); //muestra un attr
 
-
-            // $first_name = $request->input('first_name');
-            // $last_name = $request->input('last_name');
-            // $city_name = $request->input('city_name');
-            // $email = $request->input('email');
-            // $data = array('first_name' => $first_name, "last_name" => $last_name, "city_name" => $city_name, "email" => $email);
-            // DB::table('student')->insert($data);
-            // echo "Record inserted successfully.<br/>";
-            // echo '<a href = "/insert">Click Here</a> to go back.';
 
         }
     }
