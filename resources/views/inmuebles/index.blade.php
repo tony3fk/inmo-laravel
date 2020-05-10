@@ -13,8 +13,8 @@
     <p>LISTADO DE INMUEBLES</p>
     <div class="row">
         
-        @foreach ($inmuebles as $inmueble)
-        <div class="col s12 m7">
+        @foreach ($inmuebles ?? '' as $inmueble)
+        <div class="col s12 m7 l4 xl3">
             <div class="card">
 
                 <div class="card-image">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="card-action">
-                    <a href="#">INFO</a>
+                <a href="/inmuebles/{{$inmueble->referencia}}">Info</a>
                 </div>
 
             </div>
@@ -39,7 +39,7 @@
         @endforeach
     </div>
 </div>
-  @endsection
+@endsection
 
 
 

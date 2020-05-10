@@ -23,6 +23,3 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('inmuebles', 'InmueblesController');
-Route::resource('inmuebles/index/create ', 'InmueblesController@create');
-Route::resource('inmuebles/index ', 'InmueblesController@show');
-Route::resource('inmuebles/index/{index}/edit', 'InmueblesController@edit');

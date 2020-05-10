@@ -53,6 +53,8 @@ class InmueblesController extends Controller
                 $file = $request->file('imagen');
                 $fileName = time() . $file->getClientOriginalName();
                 $file->move(base_path('public') . '/images/', $fileName);
+            } else {
+                $fileName = 'thumb_placeholder.jpg';
             }
 
             $data = array(
@@ -64,7 +66,7 @@ class InmueblesController extends Controller
                 'imagen' => '/images/' . $fileName
             );
             DB::table('inmuebles')->insert($data);
-            return $data;
+            return redirect('inmuebles');
 
             //return $request->input('tipo'); //muestra un attr
             //dd($request->all());//muestra todo
@@ -79,11 +81,11 @@ class InmueblesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, Inmueble $inmueble)
     {
-        if ($request->user()->authorizeRoles(['admin', 'user'])) { //con esto sólo lo ven si eres admin o user, sino con uno sólo
-
-            return "estoy en inmuebles/show/id=" . $id;
+        if ($request->user()->authorizeRoles(['admin', 'user'])) {
+            //$inmueble = Inmueble::find($referencia);
+            return view('inmuebles.show', compact('inmueble'));
         }
     }
 
