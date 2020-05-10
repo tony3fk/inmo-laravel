@@ -2,26 +2,11 @@
 
 @section('content')
 
+   
+
 <div class="container">
     <br>
-    {{-- <div class="row justify-content-around">
-        <div class="col-1 ">
-            <a href="index.php?ctl=verInmueble&referencia=" type="button" class="btn btn-lg btn-outline-warning w-100">
-                <i class="text-dark fa fa-angle-double-left"></i>
-            </a>
-        </div>
-        <div class="col-1">
-            <a type="button" class="btn btn-outline-secondary " href="index.php?ctl=inicio"><i class="fa fa-search"></i></a>
-        </div>
-        <div class="col-1">
-            <a href="index.php?ctl=verInmueble&referencia=" type="button" class="btn btn-lg btn-outline-warning w-100">
-                <i class="text-dark fa fa-angle-double-right"></i>
-            </a>
-        </div>
-
-
-    </div> --}}
-    <br>
+    @include('common.success')
     <div class="row">
         <div class="col-12 col-xl-6 m-auto">
             <a href="{{$inmueble->imagen}}" target="_blank">
@@ -42,6 +27,11 @@
                     <td>{{$inmueble->created_at}}</td>
 
                 </tr>
+                 <tr>
+                    <td>Última actualización</td>
+                    <td>{{$inmueble->updated_at}}</td>
+
+                </tr>
                 <tr>
                     <td>Tipo</td>
                     <td>{{$inmueble->tipo}}</td>
@@ -59,7 +49,7 @@
                 </tr>
                 <tr>
                     <td>Superficie</td>
-                    <td>{{$inmueble->superficie}}</td>
+                    <td>{{$inmueble->superficie}} m2</td>
 
                 </tr>
                 <tr>
@@ -73,11 +63,21 @@
                          {{-- if admin --}}
             
                     <a href="/inmuebles/{{$inmueble->referencia}}/edit"class="btn btn-primary w-100">Edit</a>
+
+                    
                 </td>
                 </tr>         
             </table>
+
+            
         </div>
     </div>
+
+    {!! Form::open(['route'=>['inmuebles.destroy', $inmueble->referencia], 'method'=>'DELETE']) !!}
+
+        {!! Form::submit('Eliminar', ['class'=>'btn btn-danger']) !!}
+
+    {!! Form::close() !!}
 </div>
 
 @endsection

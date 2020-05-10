@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Inmueble;
 use Illuminate\Http\Request;
 use DB;
+use App\Http\Requests\StoreInmuebleRequest;
 
 
 class InmueblesController extends Controller
@@ -17,7 +18,7 @@ class InmueblesController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->user()->authorizeRoles(['admin', 'user'])) { //con esto sólo lo ven si eres admin o user, sino con uno sólo
+        if ($request->user()->authorizeRoles(['admin', 'user'])) { //con esto sólo lo ven si eres admin o user
 
             $inmuebles = Inmueble::all();
             return view('inmuebles.index', compact('inmuebles'));
@@ -44,7 +45,7 @@ class InmueblesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreInmuebleRequest $request)
     {
 
         if ($request->user()->authorizeRoles(['admin'])) { //si eres admin puedes insertar en BBDD
@@ -64,15 +65,10 @@ class InmueblesController extends Controller
                 'superficie' => $request->input('superficie'),
                 'precio' => $request->input('precio'),
                 'imagen' => '/images/' . $fileName,
-                'created_at' => date('H:i:s--d/m/Y', time())
+                'created_at' => date('Y-m-d H:i:s', time())
             );
             DB::table('inmuebles')->insert($data);
             return redirect('inmuebles');
-
-            //return $request->input('tipo'); //muestra un attr
-            //dd($request->all());//muestra todo
-
-
         }
     }
 
@@ -115,7 +111,7 @@ class InmueblesController extends Controller
     {
         if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
 
-            $request->updated_at = date('H:i:s--d/m/Y', time()); //actualiza el campo update_at
+            $request->updated_at = date('Y-m-d H:i:s', time()); //actualiza el campo update_at
             $inmueble->fill($request->except('imagen'));
             if ($request->hasFile('imagen')) {
                 $file = $request->file('imagen');
@@ -124,7 +120,8 @@ class InmueblesController extends Controller
                 $file->move(base_path('public') . '/images/', $fileName);
             }
             $inmueble->save();
-            return 'Actualizado';
+            // return view('inmuebles.show', compact('inmueble')); //las dos formas son válidas
+            return \redirect()->route('inmuebles.show', [$inmueble])->with('status', 'Inmueble actualizado correctamente');
         }
     }
 
@@ -134,11 +131,14 @@ class InmueblesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Inmueble $inmueble)
     {
         if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
 
-            return "estoy en inmuebles/destroy/{id}";
+            $file_path = public_path() . $inmueble->imagen;
+            \File::delete($file_path);
+            $inmueble->delete();
+            return redirect('inmuebles');
         }
     }
 }

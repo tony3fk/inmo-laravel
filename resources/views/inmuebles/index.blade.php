@@ -24,9 +24,10 @@
                 </div>
 
                 <div class="card-content">
-                    <span class="card-title">Ref: {{$inmueble->referencia}}</span>
-                    <h6>{{$inmueble->tipo}} en {{$inmueble->provincia}}</h6>
-                    <p>En {{$inmueble->operacion}}, {{$inmueble->precio}} €</p>
+                    <span class="card-title">{{$inmueble->tipo}} en {{ucfirst($inmueble->provincia)}}</span>
+                    <label >Ref: {{$inmueble->referencia}}</label>
+                    
+                    <p>En {{$inmueble->operacion}} por {{$inmueble->precio}} €</p>
                 </div>
 
                 <div class="card-action">
