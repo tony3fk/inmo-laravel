@@ -33,8 +33,7 @@ class InmueblesController extends Controller
     public function create(Request $request)
     {
 
-        if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
-
+        if ($request->user()->authorizeRoles(['admin'])) { //sólo admins autorizados
             return view('inmuebles.create');
         }
     }
