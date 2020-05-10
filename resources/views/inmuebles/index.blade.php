@@ -1,4 +1,13 @@
 @extends('layouts.app')   
+
+@section('Materialize')
+<!-- Materialize-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <p>LISTADO DE INMUEBLES</p>
@@ -7,18 +16,25 @@
         @foreach ($inmuebles as $inmueble)
         <div class="col s12 m7">
             <div class="card">
+
                 <div class="card-image">
-                    <img src="https://cdn.shopify.com/s/files/1/1103/5152/t/260/assets/bc-sf-filter-no-image.gif?v=14551687384537563457">
-                    <span class="card-title">Referencia: {{$inmueble->referencia}}</span>
+                    <a href="{{$inmueble->imagen}}">
+                        <img src="{{$inmueble->imagen}}">
+                    </a>                 
                 </div>
+
                 <div class="card-content">
+                    <span class="card-title">Ref: {{$inmueble->referencia}}</span>
                     <h6>{{$inmueble->tipo}} en {{$inmueble->provincia}}</h6>
                     <p>En {{$inmueble->operacion}}, {{$inmueble->precio}} €</p>
                 </div>
+
                 <div class="card-action">
                     <a href="#">INFO</a>
                 </div>
+
             </div>
+
         </div>
         @endforeach
     </div>
@@ -27,54 +43,4 @@
 
 
 
-    {{-- <p>LISTADO DE INMUEBLES</p>
-    <div class="container-fluid">
-       
-       
-
-        @foreach ($inmuebles as $inmueble)
-        <div class="re-Card re-Card--landscape">
-           
-
-                <!-- Card image -->
-                <div class="re-Card-primary">
-
-                <img class=" embed-responsive-item img-thumbnail" src="{{$inmueble->imagen}}" alt="Card image cap" id="img-inmueble">
-
-                </div>
-
-                <!-- Card content -->
-                <div class="re-Card-secondary ">
-
-
-
-                    <!-- Title  -->
-                    <h4 class="card-title">Referencia: {{$inmueble->referencia}}</h4>
-
-
-                    <hr class="hr-light">
-                    <!-- Text -->
-
-                    <h6 class="card-text">{{$inmueble->tipo}} en {{$inmueble->provincia}}</h6>
-
-                    <p class="card-text">  En {{$inmueble->operacion}}, {{$inmueble->precio}} €</p>
-                    <!-- Link -->
-                    <div class="text-right">
-                        <a href="" class="btn btn-warning">
-                            <h5>Más info.</h5>
-                        </a>
-                    </div>
-
-
-                </div>
-
-          
-    
-            <!-- Card Dark -->
-
-            
-        @endforeach
-        </div>
-</div>
-
- --}}
+   

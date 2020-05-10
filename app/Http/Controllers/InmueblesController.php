@@ -6,6 +6,7 @@ use App\Inmueble;
 use Illuminate\Http\Request;
 use DB;
 
+
 class InmueblesController extends Controller
 {
     /**
@@ -48,20 +49,25 @@ class InmueblesController extends Controller
 
         if ($request->user()->authorizeRoles(['admin'])) { //si eres admin puedes insertar en BBDD
 
+            if ($request->hasFile('imagen')) {
+                $file = $request->file('imagen');
+                $fileName = time() . $file->getClientOriginalName();
+                $file->move(base_path('public') . '/images/', $fileName);
+            }
+
             $data = array(
                 'tipo' => $request->input('tipo'),
                 'operacion' => $request->input('operacion'),
                 'provincia' => $request->input('provincia'),
                 'superficie' => $request->input('superficie'),
                 'precio' => $request->input('precio'),
-                'imagen' => $request->input('imagen')
+                'imagen' => '/images/' . $fileName
             );
             DB::table('inmuebles')->insert($data);
-            return "Record inserted successfully.";
+            return $data;
 
-
-            //return $request->all();//muestra todo
             //return $request->input('tipo'); //muestra un attr
+            //dd($request->all());//muestra todo
 
 
         }

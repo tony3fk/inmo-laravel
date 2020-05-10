@@ -5,13 +5,13 @@
 @section('content')
     <div class="container">
     
-        <form class="form-group" action="/inmuebles" method="POST" enctype="multipart/form-data">
+        <form class="form-group" method="POST" action="/inmuebles"  enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
                 <br>
                 <label>Tipo</label>
-                <select class="form-control" id="FormControlSelect1" name="tipo" required>
+                <select class="form-control" name="tipo" required>
                     
                     <option value="Parking">Parking</option>
                     <option value="Local">Local</option>
@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label>Operación</label>
-                <select class="form-control" id="FormControlSelect2" name="operacion" required>
+                <select class="form-control"  name="operacion" required>
                 
                     <option value="Venta">Venta</option>
                     <option value="Alquiler">Alquiler</option>
@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <label>Provincia</label>
-                <select class="form-control" id="FormControlSelect3" name="provincia" required>
+                <select class="form-control"  name="provincia" required>
                     
                     <option value='alava'>Álava</option>
                     <option value='albacete'>Albacete</option>
@@ -96,21 +96,19 @@
 
             <div class="form-group">
                 <label>Superficie (m2)</label>
-                <input type="text" class="form-control" name="superficie" aria-describedby="SuperficieHelp"
-                    value="" required>
+                <input type="text" class="form-control" name="superficie" required>
             </div>
 
             <div class="form-group">
                 <label>Precio (€)</label>
-                <input type="text" class="form-control" name="precio" aria-describedby="tipoHelp"
-                    value="" required>
+                <input type="text" class="form-control" name="precio" required>
             </div>
             <div class="form-group">
                 <label>Imagen</label>
-                <input type="file" name="imagen" id="imagen" />
+                <input accept="image/jpeg, image/png, image/jpg" type="file" name="imagen">
             </div>
 
-            <input type="submit" class="btn btn-primary" value="insertar" name="insertar" />
+            <button type="submit" class="btn btn-primary" name="insertar">Save</button>
         </form>
     </div>
 
