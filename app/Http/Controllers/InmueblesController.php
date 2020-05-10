@@ -63,7 +63,8 @@ class InmueblesController extends Controller
                 'provincia' => $request->input('provincia'),
                 'superficie' => $request->input('superficie'),
                 'precio' => $request->input('precio'),
-                'imagen' => '/images/' . $fileName
+                'imagen' => '/images/' . $fileName,
+                'created_at' => date('H:i:s--d/m/Y', time())
             );
             DB::table('inmuebles')->insert($data);
             return redirect('inmuebles');
@@ -95,11 +96,11 @@ class InmueblesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Inmueble $inmueble)
     {
         if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
 
-            return "estoy en inmuebles/edit/id=" . $id;
+            return view('inmuebles.edit', compact('inmueble'));
         }
     }
 
@@ -110,11 +111,20 @@ class InmueblesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Inmueble $inmueble)
     {
         if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
 
-            return "estoy en inmuebles/update/{id}";
+            $request->updated_at = date('H:i:s--d/m/Y', time()); //actualiza el campo update_at
+            $inmueble->fill($request->except('imagen'));
+            if ($request->hasFile('imagen')) {
+                $file = $request->file('imagen');
+                $fileName = time() . $file->getClientOriginalName();
+                $inmueble->imagen = '/images/' . $fileName;
+                $file->move(base_path('public') . '/images/', $fileName);
+            }
+            $inmueble->save();
+            return 'Actualizado';
         }
     }
 

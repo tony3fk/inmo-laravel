@@ -23,7 +23,7 @@
     </div> --}}
     <br>
     <div class="row">
-        <div class="col-12 col-xl-6 m-auto ">
+        <div class="col-12 col-xl-6 m-auto">
             <a href="{{$inmueble->imagen}}" target="_blank">
                 <img class="w-100 img-thumbnail" src="{{$inmueble->imagen}}">
             </a>
@@ -35,7 +35,7 @@
             <h1 class="text-center">Ref: {{$inmueble->referencia}}</h1>
 
             <!--Implantar siguiente registro -->
-            <table class="bg-light table-striped ">
+            <table class="bg-light table mt-5 m-auto">
 
                 <tr>
                     <td>Fecha de alta</td>
@@ -54,7 +54,7 @@
                 </tr>
                 <tr>
                     <td>Provincia</td>
-                    <td>{{$inmueble->provincia}}</td>
+                    <td>{{ucfirst($inmueble->provincia)}}</td>
 
                 </tr>
                 <tr>
@@ -66,19 +66,15 @@
                     <td>Precio</td>
                     <td>{{$inmueble->precio}} €</td>
 
-                </tr>
-
-                {{-- if admin
-            
+                </tr> 
                 <tr>
-                    <td class="text-center">
-                        <a href="index.php?ctl=editarInmuebles&id="{{$inmueble->referencia}}" class="btn btn-warning w-25 "><i class="fa fa-edit"></i></a>
-                    </td>
-                    <td>
-
-                    </td>
-                </tr> --}}
-
+                       
+                    <td colspan=2 class="text-center">
+                         {{-- if admin --}}
+            
+                    <a href="/inmuebles/{{$inmueble->referencia}}/edit"class="btn btn-primary w-100">Edit</a>
+                </td>
+                </tr>         
             </table>
         </div>
     </div>
