@@ -68,6 +68,7 @@
                                     <a class="dropdown-item" href="{{ route('inmuebles.create') }}">
                                         {{ __('Nuevo Inmueble') }}
                                     </a>
+
                                     
                                    
 

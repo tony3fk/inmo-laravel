@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
+use App\Role;
+use App\Permission;
 
-class UserController extends Controller
+
+
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin o user
-
-            $users = User::all();
-            return view('users.index', compact('users'));
-            // return $users;
-        }
-
-
-        // return view('users.index');
+        $roles = Role::orderBy('id', 'Desc')->paginate(2);
+        //return view('role.index', compact($roles));
+        return view('role.index', ['roles' => $roles])->withRoles($roles);
     }
 
     /**
@@ -32,7 +29,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $permissions = Permission::get();
+
+        return view('role.create', compact('permissions'));
     }
 
     /**
@@ -43,7 +42,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**

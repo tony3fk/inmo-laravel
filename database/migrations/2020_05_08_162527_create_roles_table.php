@@ -14,10 +14,14 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_unicode_ci';
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->enum('full-access', ['yes', 'no'])->nullable();
             $table->timestamps();
         });
     }
