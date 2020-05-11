@@ -94,8 +94,7 @@ class PermissionInfoSeeder extends Seeder
         ]);
         $permission_all[] = $permission->id;
 
-        //table permission_role
-        $roleAdmin->permissions()->sync($permission_all);
+
 
         // permission user
         $permission = Permission::create([
@@ -137,5 +136,9 @@ class PermissionInfoSeeder extends Seeder
 
         ]);
         $permission_all[] = $permission->id;
+
+
+        //table permission_role
+        //$roleAdmin->permissions()->sync($permission_all);
     }
 }
