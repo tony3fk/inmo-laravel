@@ -21,30 +21,36 @@
                             <h3>Required data</h3>
                         </div>
                         <div class="form-group">                        
-                            <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+                        <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="{{old('name')}}">
                         </div>
 
                          <div class="form-group">                    
-                            <input type="text" class="form-control" id="slug" placeholder="Slug" name="slug">
+                            <input type="text" class="form-control" id="slug" placeholder="Slug" name="slug" value="{{old('slug')}}">
                         </div>
                       
                         <div class="form-group">
-                            <textarea class="form-control" id="description" rows="3" placeholder="Description" name="description"></textarea>
+                            <textarea class="form-control" id="description" rows="3" placeholder="Description" name="description" >{{old('description')}}</textarea>
                         </div>
                         <hr>
 
                         <h3>Full Access</h3>
 
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="fullaccessyes" name="full-access" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="fullaccessyes"  >Yes</label>
+                            <input type="radio" id="fullaccessyes" name="full-access" class="custom-control-input" value="yes" 
+                                @if(old('full-access')=='yes') checked @endif>
+                            <label class="custom-control-label" for="fullaccessyes">
+                                Yes
+                            </label>
+
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="fullaccessno" name="full-access" class="custom-control-input" value="no" checked>
-                            <label class="custom-control-label" for="fullaccessno">No</label>
+                            <input type="radio" id="fullaccessno" name="full-access" class="custom-control-input" value="no" 
+                                @if(old('full-access')=='no') checked @endif
+                                @if(old('full-access')===null) checked @endif>
+                            <label class="custom-control-label" for="fullaccessno">
+                                No
+                            </label>
                         </div>
-
-
 
                         <hr>
 
@@ -52,7 +58,12 @@
 
                         @foreach ($permissions as $permission)
                             <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="permission_{{$permission->id}}" value="{{$permission->id}}" name="permission[]">
+                            <input type="checkbox" class="custom-control-input" id="permission_{{$permission->id}}" value="{{$permission->id}}" name="permission[]"
+                            @if (is_array(old('permission')) && in_array($permission->id, old('permission')))
+                                checked
+                            @endif
+                            
+                            >
                             <label class="custom-control-label" for="permission_{{$permission->id}}">
                                 {{$permission->id}}
                                 -
@@ -67,11 +78,7 @@
 
 
                     </form>
-                 
-
-
-                    
-                </div>
+               </div>
             </div>
         </div>
     </div>
