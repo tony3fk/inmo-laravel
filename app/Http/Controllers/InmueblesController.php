@@ -18,11 +18,11 @@ class InmueblesController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->user()->authorizeRoles(['admin', 'user'])) { //con esto sólo lo ven si eres admin o user
+        //if ($request->user()->authorizeRoles(['admin', 'user'])) { //con esto sólo lo ven si eres admin o user
 
-            $inmuebles = Inmueble::all();
-            return view('inmuebles.index', compact('inmuebles'));
-        }
+        $inmuebles = Inmueble::all();
+        return view('inmuebles.index', compact('inmuebles'));
+        //}
     }
 
     /**
@@ -33,9 +33,9 @@ class InmueblesController extends Controller
     public function create(Request $request)
     {
 
-        if ($request->user()->authorizeRoles(['admin'])) { //sólo admins autorizados
-            return view('inmuebles.create');
-        }
+        // if ($request->user()->authorizeRoles(['admin'])) { //sólo admins autorizados
+        return view('inmuebles.create');
+        // }
     }
 
     /**
@@ -47,28 +47,28 @@ class InmueblesController extends Controller
     public function store(StoreInmuebleRequest $request)
     {
 
-        if ($request->user()->authorizeRoles(['admin'])) { //si eres admin puedes insertar en BBDD
+        //if ($request->user()->authorizeRoles(['admin'])) { //si eres admin puedes insertar en BBDD
 
-            if ($request->hasFile('imagen')) {
-                $file = $request->file('imagen');
-                $fileName = time() . $file->getClientOriginalName();
-                $file->move(base_path('public') . '/images/', $fileName);
-            } else {
-                $fileName = 'thumb_placeholder.jpg';
-            }
-
-            $data = array(
-                'tipo' => $request->input('tipo'),
-                'operacion' => $request->input('operacion'),
-                'provincia' => $request->input('provincia'),
-                'superficie' => $request->input('superficie'),
-                'precio' => $request->input('precio'),
-                'imagen' => '/images/' . $fileName,
-                'created_at' => date('Y-m-d H:i:s', time())
-            );
-            DB::table('inmuebles')->insert($data);
-            return redirect('inmuebles');
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $fileName = time() . $file->getClientOriginalName();
+            $file->move(base_path('public') . '/images/', $fileName);
+        } else {
+            $fileName = 'thumb_placeholder.jpg';
         }
+
+        $data = array(
+            'tipo' => $request->input('tipo'),
+            'operacion' => $request->input('operacion'),
+            'provincia' => $request->input('provincia'),
+            'superficie' => $request->input('superficie'),
+            'precio' => $request->input('precio'),
+            'imagen' => '/images/' . $fileName,
+            'created_at' => date('Y-m-d H:i:s', time())
+        );
+        DB::table('inmuebles')->insert($data);
+        return redirect('inmuebles');
+        // }
     }
 
     /**
@@ -79,10 +79,10 @@ class InmueblesController extends Controller
      */
     public function show(Request $request, Inmueble $inmueble)
     {
-        if ($request->user()->authorizeRoles(['admin', 'user'])) {
-            //$inmueble = Inmueble::find($referencia);
-            return view('inmuebles.show', compact('inmueble'));
-        }
+        //if ($request->user()->authorizeRoles(['admin', 'user'])) {
+        //$inmueble = Inmueble::find($referencia);
+        return view('inmuebles.show', compact('inmueble'));
+        //}
     }
 
     /**
@@ -93,10 +93,10 @@ class InmueblesController extends Controller
      */
     public function edit(Request $request, Inmueble $inmueble)
     {
-        if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
+        // if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
 
-            return view('inmuebles.edit', compact('inmueble'));
-        }
+        return view('inmuebles.edit', compact('inmueble'));
+        // }
     }
 
     /**
@@ -108,20 +108,20 @@ class InmueblesController extends Controller
      */
     public function update(Request $request, Inmueble $inmueble)
     {
-        if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
+        // if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
 
-            $request->updated_at = date('Y-m-d H:i:s', time()); //actualiza el campo update_at
-            $inmueble->fill($request->except('imagen'));
-            if ($request->hasFile('imagen')) {
-                $file = $request->file('imagen');
-                $fileName = time() . $file->getClientOriginalName();
-                $inmueble->imagen = '/images/' . $fileName;
-                $file->move(base_path('public') . '/images/', $fileName);
-            }
-            $inmueble->save();
-            // return view('inmuebles.show', compact('inmueble')); //las dos formas son válidas
-            return \redirect()->route('inmuebles.show', [$inmueble])->with('status', 'Inmueble actualizado correctamente');
+        $request->updated_at = date('Y-m-d H:i:s', time()); //actualiza el campo update_at
+        $inmueble->fill($request->except('imagen'));
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $fileName = time() . $file->getClientOriginalName();
+            $inmueble->imagen = '/images/' . $fileName;
+            $file->move(base_path('public') . '/images/', $fileName);
         }
+        $inmueble->save();
+        // return view('inmuebles.show', compact('inmueble')); //las dos formas son válidas
+        return \redirect()->route('inmuebles.show', [$inmueble])->with('status', 'Inmueble actualizado correctamente');
+        // }
     }
 
     /**
@@ -132,12 +132,12 @@ class InmueblesController extends Controller
      */
     public function destroy(Request $request, Inmueble $inmueble)
     {
-        if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
+        //if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin
 
-            $file_path = public_path() . $inmueble->imagen;
-            \File::delete($file_path);
-            $inmueble->delete();
-            return redirect('inmuebles');
-        }
+        $file_path = public_path() . $inmueble->imagen;
+        \File::delete($file_path);
+        $inmueble->delete();
+        return redirect('inmuebles');
+        // }
     }
 }

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Mostrar aquí el buscador de inmuebles
+                    Logueado
                 </div>
             </div>
         </div>

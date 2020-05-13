@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTableSeeder::class); //comentar para desactivar seeder
         $this->call(UserTableSeeder::class); //comentar para desactivar seeder
+        $this->call(PermissionInfoSeeder::class); //comentar para desactivar seeder
     }
 }

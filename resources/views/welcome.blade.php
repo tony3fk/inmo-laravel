@@ -62,6 +62,8 @@
                 margin-bottom: 30px;
             }
         </style>
+       
+
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -76,6 +78,8 @@
                             <a href="{{ route('register') }}">Register</a>
                         @endif
                     @endauth
+
+                        
                 </div>
             @endif
 
