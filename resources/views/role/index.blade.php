@@ -46,7 +46,12 @@
                                      <a class="btn btn-success" href="{{route('role.edit',$role->id)}}">Edit</a>
                                 </td>  
                                 <td>
-                                     <a class="btn btn-danger" href="{{route('role.edit',$role->id)}}">Delete</a>
+                                    <form action="{{route('role.destroy',$role->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                    
                                 </td>                         
                           
                             </tr>      

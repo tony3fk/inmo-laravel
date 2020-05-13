@@ -10,8 +10,8 @@
     <input type="email" class="form-control" name="precio" value="{{$user->email ?? ''}}" required>
 </div>
 <div class="form-group">
-    <label>Passro</label>
-    <input type="text" class="form-control" name="superficie"value="{{$user->name ?? ''}}" required>
+    <label>Password</label>
+    <input type="text" class="form-control" name="superficie"value="{{$user->password ?? ''}}" required>
 </div>
 
 <div class="form-group">

@@ -18,6 +18,7 @@ use App\Permission;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 
@@ -25,9 +26,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/role', 'RoleController')->names('role');
+Route::resource('/role', 'RoleController')->names('role')->middleware('auth');
+Route::resource('/user', 'UserController')->names('user')->middleware('auth');
 
-Route::resource('inmuebles', 'InmueblesController');
+Route::resource('inmuebles', 'InmueblesController')->names('inmuebles')->middleware('auth');
 
 
 

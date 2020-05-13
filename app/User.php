@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -61,6 +62,20 @@ class User extends Authenticatable
     }
 
 
+    // public function role()
+    // {
+    //     return $this->belongsTo('App\Role')->withTimestamps();
+    // }
+
+    // public function isAdmin()
+    // {
+    //     if ($this->role->name == 'admin') {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+
 
 
 
@@ -74,7 +89,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar',
+        'name', 'email', 'password', 'avatar', 'role_id'
     ];
 
     /**

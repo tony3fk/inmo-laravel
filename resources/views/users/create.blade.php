@@ -9,11 +9,11 @@
 
         @include('common.errors')
 
-        {!! Form::open(['route'=>'users.store', 'method'=>'POST', 'files'=>true]) !!}
+        {!! Form::open(['route'=>'user.store', 'method'=>'POST', 'files'=>true]) !!}
 
             @include('users.form')
             
-            {!! Form::submit('Guardar', ['class'=>'btn btn-primary'])!!}
+            {!! Form::submit('Save', ['class'=>'btn btn-primary'])!!}
         {!! Form::close() !!}
 
 

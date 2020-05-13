@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
+
 class UserController extends Controller
 {
     /**
@@ -14,12 +15,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin o user
+        //if ($request->user()->authorizeRoles(['admin'])) { //con esto sólo lo ven si eres admin o user
 
-            $users = User::all();
-            return view('users.index', compact('users'));
-            // return $users;
-        }
+        $users = User::all();
+        return view('users.index', compact('users'));
+        // return $users;
+        //  }
 
 
         // return view('users.index');
@@ -30,10 +31,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('users.create');
-    }
+    // public function create()
+    // {
+    //     return view('users.create');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -41,10 +42,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    // public function store(Request $request)
+    // {
+    //     return 'store';
+    // }
 
     /**
      * Display the specified resource.
@@ -52,9 +53,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.view', compact('user'));
     }
 
     /**
@@ -63,9 +64,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -75,9 +76,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+
+        $user->update($request->all());
+
+        return redirect()->route('user.index')->with('status_success', 'User updated success');
     }
 
     /**
@@ -86,8 +90,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('user.index')->with('status_success', 'User removed successfully');
     }
 }
