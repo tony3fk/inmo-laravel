@@ -15,6 +15,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+   
+   
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -75,9 +78,12 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    <!-- widget de geolocalizacion y temperatura -->
+                                    <h3 class="text-warning navbar-brand " id="temp"></h3> 
                                 </div>
                             </li>
                         @endguest
+
                     </ul>
                 </div>
             </div>
